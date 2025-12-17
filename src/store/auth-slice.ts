@@ -1,3 +1,4 @@
+import { Storage } from '@/lib/storage';
 import type { User } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -7,8 +8,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  currentUserId: null,
-  users: [],
+  currentUserId: Storage.getCurrentUserId(),
+  users: Storage.getUsers(),
 };
 
 const slice = createSlice({
@@ -27,9 +28,11 @@ const slice = createSlice({
       }
 
       state.currentUserId = user.id;
+      Storage.setCurrentUserId(user.id);
     },
     logout(state) {
       state.currentUserId = null;
+      Storage.setCurrentUserId(null);
     },
     register(state, action: { payload: { user: Omit<User, 'id'> } }) {
       const { user } = action.payload;
@@ -45,6 +48,7 @@ const slice = createSlice({
       };
 
       state.users.push(newUser);
+      Storage.setUsers(state.users);
     },
   },
 });

@@ -1,3 +1,4 @@
+import { Storage } from '@/lib/storage';
 import type { Contact } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -6,7 +7,7 @@ interface ContactsState {
 }
 
 const initialState: ContactsState = {
-  contacts: [],
+  contacts: Storage.getContacts(),
 };
 
 const slice = createSlice({
@@ -39,11 +40,14 @@ const slice = createSlice({
       };
 
       state.contacts.push(newContact);
+      Storage.setContacts(state.contacts);
     },
 
     deleteContact(state, action: { payload: { contactId: number } }) {
       const { contactId } = action.payload;
+
       state.contacts = state.contacts.filter((c) => c.id !== contactId);
+      Storage.setContacts(state.contacts);
     },
 
     updateContact(
@@ -66,6 +70,7 @@ const slice = createSlice({
         ...state.contacts[contactIndex],
         ...updatedContact,
       };
+      Storage.setContacts(state.contacts);
     },
   },
 });
