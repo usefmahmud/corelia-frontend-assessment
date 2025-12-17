@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from '@/pages/login';
 import RegisterPage from '@/pages/register';
-import ProtectedRoute from './components/protected-route';
-import AuthRoute from './components/auth-route';
+import ProtectedRoute from './components/guards/protected-route';
+import AuthRoute from './components/guards/auth-route';
 
 function App() {
   return (
