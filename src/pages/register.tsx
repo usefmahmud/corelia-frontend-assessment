@@ -17,13 +17,13 @@ import {
   type RegisterSchemaValues,
 } from '@/schema/register.schema';
 import PasswordInput from '@/components/custom/password-input';
-import { useDispatch } from 'react-redux';
 import { register } from '@/store/auth-slice';
 import toast from 'react-hot-toast';
+import { useAppDispatch } from '@/store';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const form = useForm<RegisterSchemaValues>({
     resolver: zodResolver(registerSchema),

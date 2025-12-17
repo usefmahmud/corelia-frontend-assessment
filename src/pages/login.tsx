@@ -16,13 +16,13 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { loginSchema, type LoginSchemaValues } from '@/schema/login.schema';
 import PasswordInput from '@/components/custom/password-input';
-import { useDispatch } from 'react-redux';
 import { login } from '@/store/auth-slice';
 import toast from 'react-hot-toast';
+import { useAppDispatch } from '@/store';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const form = useForm<LoginSchemaValues>({
     resolver: zodResolver(loginSchema),
