@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import LoginPage from '@/pages/login';
 
 function App() {
   return (
@@ -6,6 +7,8 @@ function App() {
       <div className='container mx-4'>
         <Routes>
           <Route path='/' element={<div>Home</div>} />
+
+          <Route path='/login' Component={LoginPage} />
         </Routes>
       </div>
     </main>
