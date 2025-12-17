@@ -3,6 +3,7 @@ import LoginPage from '@/pages/login';
 import RegisterPage from '@/pages/register';
 import ProtectedRoute from './components/guards/protected-route';
 import AuthRoute from './components/guards/auth-route';
+import ContactsPage from './pages/contacts';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
             path='/'
             element={
               <ProtectedRoute>
-                <div>Home</div>
+                <ContactsPage />
               </ProtectedRoute>
             }
           />
