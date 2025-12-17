@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -16,8 +16,14 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { loginSchema, type LoginSchemaValues } from '@/schema/login.schema';
 import PasswordInput from '@/components/custom/password-input';
+import { useDispatch } from 'react-redux';
+import { login } from '@/store/auth-slice';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const form = useForm<LoginSchemaValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -29,7 +35,14 @@ const LoginPage = () => {
   });
 
   const onSubmit = (data: LoginSchemaValues) => {
-    console.log(data);
+    try {
+      dispatch(login(data));
+
+      toast.success('Logged in successfully');
+      navigate('/');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Login failed');
+    }
   };
 
   return (

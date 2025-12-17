@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -17,8 +17,14 @@ import {
   type RegisterSchemaValues,
 } from '@/schema/register.schema';
 import PasswordInput from '@/components/custom/password-input';
+import { useDispatch } from 'react-redux';
+import { register } from '@/store/auth-slice';
+import toast from 'react-hot-toast';
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const form = useForm<RegisterSchemaValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -30,7 +36,16 @@ const RegisterPage = () => {
   });
 
   const onSubmit = (data: RegisterSchemaValues) => {
-    console.log(data);
+    try {
+      dispatch(register({ user: data }));
+
+      toast.success('Registered successfully');
+      navigate('/login');
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : 'Registration failed'
+      );
+    }
   };
 
   return (
