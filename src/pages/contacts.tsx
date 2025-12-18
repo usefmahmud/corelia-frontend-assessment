@@ -67,7 +67,7 @@ const ContactsPage = () => {
             placeholder='Search by name or phone...'
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className='max-w-sm py-0 text-sm'
+            className='max-w-xs py-0 text-sm'
           />
         </div>
 
