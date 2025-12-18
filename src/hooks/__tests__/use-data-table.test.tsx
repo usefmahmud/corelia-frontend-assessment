@@ -34,4 +34,32 @@ describe('useDataTable', () => {
     expect(result.current.data[0].name).toBe('A name');
     expect(result.current.data[1].name).toBe('B name');
   });
+
+  it('should handle pagination correctly', () => {
+    const { result } = renderHook(() =>
+      useDataTable({ data: mockData, columns, pageSize: 2 })
+    );
+
+    act(() => {
+      result.current.pagination.nextPage();
+    });
+
+    expect(result.current.pagination.currentPage).toBe(2);
+    expect(result.current.data[0].name).toBe('C name'); // first name in page 2 (A,B | C,D | E)
+
+    // move to a specific page
+    act(() => {
+      result.current.pagination.setPage(3);
+    });
+
+    expect(result.current.pagination.currentPage).toBe(3);
+    expect(result.current.data[0].name).toBe('E name'); // first name in page 3
+    expect(result.current.data).toHaveLength(1); // only one item left in page 3
+
+    act(() => {
+      result.current.pagination.prevPage();
+    });
+
+    expect(result.current.pagination.currentPage).toBe(2);
+  });
 });
