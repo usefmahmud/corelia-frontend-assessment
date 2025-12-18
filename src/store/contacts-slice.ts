@@ -17,13 +17,6 @@ const slice = createSlice({
     addContact(state, action: { payload: { contact: Omit<Contact, 'id'> } }) {
       const { contact } = action.payload;
 
-      const isUserExist = state.contacts.find(
-        (c) => c.userId === contact.userId
-      );
-      if (!isUserExist) {
-        throw new Error('User does not exist');
-      }
-
       const isContactExist = state.contacts.find(
         (c) =>
           c.userId === contact.userId &&

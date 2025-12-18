@@ -25,19 +25,14 @@ import {
   type AddContactValues,
 } from '@/schema/contact.schema';
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { addContact } from '@/store/contacts-slice';
 
-interface AddContactDialogProps {
-  onAddContact: (contact: AddContactValues, userId: string) => void;
-}
-
-export const AddContactDialog = ({ onAddContact }: AddContactDialogProps) => {
+export const AddContactDialog = () => {
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
-  const currentUserId = useSelector(
-    (state: RootState) => state.auth.currentUserId
-  );
+  const currentUserId = useAppSelector((state) => state.auth.currentUserId);
 
   const form = useForm<AddContactValues>({
     resolver: zodResolver(addContactSchema),
@@ -54,7 +49,14 @@ export const AddContactDialog = ({ onAddContact }: AddContactDialogProps) => {
     }
 
     try {
-      onAddContact(data, currentUserId);
+      dispatch(
+        addContact({
+          contact: {
+            ...data,
+            userId: currentUserId,
+          },
+        })
+      );
       form.reset();
       setIsOpen(false);
     } catch (error) {
