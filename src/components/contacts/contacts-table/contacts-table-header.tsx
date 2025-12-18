@@ -17,9 +17,7 @@ const ContactsTableHeader = ({ headers }: ContactsTableHeaderProps) => {
             onClick={header.onClick}
             style={{ cursor: header.sortable ? 'pointer' : 'default' }}
           >
-            <div
-              className={`flex items-center gap-2 ${header.className?.includes('text-center') ? 'justify-center' : ''}`}
-            >
+            <div className='flex items-center justify-center gap-2'>
               {header.header}
               {header.sortDirection && (
                 <span>{header.sortDirection === 'asc' ? '↑' : '↓'}</span>

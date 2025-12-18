@@ -15,24 +15,21 @@ export const createContactsTableColumns = ({
   {
     key: 'id',
     header: '#',
-    className: 'w-24 text-center font-medium',
+    className: 'w-24',
     render: (_, index) => <span>{index + 1}</span>,
   },
   {
     key: 'name',
     header: 'Name',
-    className: 'text-center',
     sortable: true,
   },
   {
     key: 'number',
     header: 'Number',
-    className: 'text-center',
   },
   {
     key: 'id',
     header: 'Actions',
-    className: 'text-center',
     render: (contact) => (
       <div className='flex items-center justify-center gap-2'>
         <Button
