@@ -1,5 +1,5 @@
 import { Navbar } from '@/components/layout/navbar';
-import { ContactTable } from '@/components/contacts/contact-table';
+import { ContactsTable } from '@/components/contacts/contacts-table/contacts-table';
 import { AddContactDialog } from '@/components/contacts/add-contact-modal';
 import { EditContactDialog } from '@/components/contacts/edit-contact-modal';
 import { useAppDispatch, useAppSelector } from '@/store';
@@ -50,7 +50,7 @@ const ContactsPage = () => {
           <AddContactDialog />
         </div>
 
-        <ContactTable
+        <ContactsTable
           contacts={userContacts}
           onDelete={handleDeleteContact}
           onEdit={handleEditContact}
