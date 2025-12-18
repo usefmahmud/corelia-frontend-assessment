@@ -1,15 +1,19 @@
 import { Navbar } from '@/components/layout/navbar';
 import { ContactTable } from '@/components/contacts/contact-table';
 import { AddContactDialog } from '@/components/contacts/add-contact-modal';
+import { EditContactDialog } from '@/components/contacts/edit-contact-modal';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { deleteContact } from '@/store/contacts-slice';
 import toast from 'react-hot-toast';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import type { Contact } from '@/types';
 
 const ContactsPage = () => {
   const dispatch = useAppDispatch();
   const contacts = useAppSelector((state) => state.contacts.contacts);
   const currentUserId = useAppSelector((state) => state.auth.currentUserId);
+  const [editingContact, setEditingContact] = useState<Contact | null>(null);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const userContacts = useMemo(
     () => contacts.filter((contact) => contact.userId === currentUserId),
@@ -27,6 +31,11 @@ const ContactsPage = () => {
     }
   };
 
+  const handleEditContact = (contact: Contact) => {
+    setEditingContact(contact);
+    setIsEditOpen(true);
+  };
+
   return (
     <div className='flex min-h-screen w-full flex-col gap-6 bg-white shadow-sm'>
       <Navbar />
@@ -41,7 +50,17 @@ const ContactsPage = () => {
           <AddContactDialog />
         </div>
 
-        <ContactTable contacts={userContacts} onDelete={handleDeleteContact} />
+        <ContactTable
+          contacts={userContacts}
+          onDelete={handleDeleteContact}
+          onEdit={handleEditContact}
+        />
+
+        <EditContactDialog
+          open={isEditOpen}
+          onOpenChange={setIsEditOpen}
+          contact={editingContact}
+        />
       </div>
     </div>
   );

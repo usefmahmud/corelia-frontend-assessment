@@ -13,9 +13,14 @@ import type { Contact } from '@/types';
 interface ContactTableProps {
   contacts: Contact[];
   onDelete: (id: number) => void;
+  onEdit: (contact: Contact) => void;
 }
 
-export const ContactTable = ({ contacts, onDelete }: ContactTableProps) => {
+export const ContactTable = ({
+  contacts,
+  onDelete,
+  onEdit,
+}: ContactTableProps) => {
   return (
     <div className='overflow-hidden rounded-sm border'>
       <Table>
@@ -41,6 +46,7 @@ export const ContactTable = ({ contacts, onDelete }: ContactTableProps) => {
                     variant='ghost'
                     size='icon'
                     className='text-primary hover:bg-primary/5 hover:text-primary size-8'
+                    onClick={() => onEdit(contact)}
                   >
                     <Pencil className='size-4' />
                   </Button>
