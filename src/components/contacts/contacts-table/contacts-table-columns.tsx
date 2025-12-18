@@ -16,6 +16,7 @@ export const createContactsTableColumns = ({
     key: 'id',
     header: '#',
     className: 'w-24 text-center font-medium',
+    render: (_, index) => <span>{index + 1}</span>,
   },
   {
     key: 'name',

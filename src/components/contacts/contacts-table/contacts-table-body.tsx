@@ -22,11 +22,13 @@ const ContactsTableBody = ({ data, headers }: ContactsTableBodyProps) => {
 
   return (
     <TableBody>
-      {data.map((contact) => (
+      {data.map((contact, index) => (
         <TableRow key={contact.id}>
-          {headers.map((column, index) => (
-            <TableCell key={index} className={column.className}>
-              {column.render ? column.render(contact) : contact[column.key]}
+          {headers.map((column, colIndex) => (
+            <TableCell key={colIndex} className={column.className}>
+              {column.render
+                ? column.render(contact, index)
+                : (contact[column.key] as React.ReactNode)}
             </TableCell>
           ))}
         </TableRow>

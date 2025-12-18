@@ -7,7 +7,7 @@ export interface Column<T> {
   header: string;
   sortable?: boolean;
   className?: string;
-  render?: (item: T) => ReactNode;
+  render?: (item: T, index: number) => ReactNode;
 }
 
 interface UseDataTableProps<T> {
