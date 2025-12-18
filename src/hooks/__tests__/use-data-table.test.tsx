@@ -62,4 +62,44 @@ describe('useDataTable', () => {
 
     expect(result.current.pagination.currentPage).toBe(2);
   });
+
+  it('should handle sorting correctly', () => {
+    const { result } = renderHook(() =>
+      useDataTable({ data: mockData, columns, pageSize: 5 })
+    );
+
+    const nameHeader = result.current.headers.find(({ key }) => key === 'name');
+    act(() => {
+      nameHeader?.onClick?.();
+    });
+
+    // ascending sort by name
+    expect(
+      result.current.headers.find(({ key }) => key === 'name')?.sortDirection
+    ).toBe('asc');
+    expect(result.current.data[0].name).toBe('A name');
+    expect(result.current.data[4].name).toBe('E name');
+
+    // descending sort by name
+    act(() => {
+      nameHeader?.onClick?.();
+    });
+
+    expect(
+      result.current.headers.find((h) => h.key === 'name')?.sortDirection
+    ).toBe('desc');
+    expect(result.current.data[0].name).toBe('E name');
+    expect(result.current.data[4].name).toBe('A name');
+
+    // remove sorting
+    act(() => {
+      nameHeader?.onClick?.();
+    });
+
+    expect(
+      result.current.headers.find((h) => h.key === 'name')?.sortDirection
+    ).toBeNull();
+    expect(result.current.data[0].name).toBe('A name');
+    expect(result.current.data[4].name).toBe('E name');
+  });
 });
