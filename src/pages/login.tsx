@@ -19,6 +19,7 @@ import PasswordInput from '@/components/custom/password-input';
 import { login } from '@/store/auth-slice';
 import toast from 'react-hot-toast';
 import { useAppDispatch } from '@/store';
+import CoreliaLogo from '@/assets/corelia-logo.svg';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -48,8 +49,8 @@ const LoginPage = () => {
   return (
     <div className='flex min-h-screen items-center justify-center p-4'>
       <Card className='bg-background w-full max-w-md shadow-md'>
-        <CardHeader className='text-center'>
-          <div>corelia</div>
+        <CardHeader className='flex items-center justify-center text-center'>
+          <img src={CoreliaLogo} alt='Corelia' className='h-16' />
         </CardHeader>
 
         <CardContent>

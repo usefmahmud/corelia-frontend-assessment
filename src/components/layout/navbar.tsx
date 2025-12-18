@@ -9,6 +9,7 @@ import {
 import { useAppDispatch } from '@/store';
 import { logout } from '@/store/auth-slice';
 import { useNavigate } from 'react-router-dom';
+import CoreliaLogo from '@/assets/corelia-logo.svg';
 
 export const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ export const Navbar = () => {
   return (
     <div className='fixed left-0 flex w-full items-center justify-between border-b bg-white px-8 py-4'>
       <div className='flex flex-col'>
-        <h1 className='text-2xl font-bold'>Corelia</h1>
+        <img src={CoreliaLogo} alt='Corelia' className='h-12' />
       </div>
       <div className='flex items-center gap-4'>
         <Button variant='ghost' size='icon' className='rounded-full'>
