@@ -74,6 +74,8 @@ const slice = createSlice({
         throw new Error('Contact already exists');
       }
 
+      state.contacts[contactIndex] = newContact;
+
       Storage.setContacts(state.contacts);
     },
   },
