@@ -69,10 +69,16 @@ export function useDataTable<T>({
   const totalPages = Math.ceil(data.length / pageSize);
 
   const handleSort = (key: keyof T) => {
+    // sorting in 3 steps: asc -> desc -> none
     setSortConfig((current) => {
-      if (current?.key === key && current.direction === 'asc') {
-        return { key, direction: 'desc' };
+      if (current?.key === key) {
+        if (current?.direction === 'asc') {
+          return { key, direction: 'desc' };
+        } else {
+          return null;
+        }
       }
+
       return { key, direction: 'asc' };
     });
   };
