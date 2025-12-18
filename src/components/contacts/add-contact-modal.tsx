@@ -77,7 +77,7 @@ export const AddContactDialog = () => {
       onOpenChange={(open) => (open ? setIsOpen(true) : handleClose())}
     >
       <DialogTrigger asChild>
-        <Button>
+        <Button className='self-end'>
           <PlusCircle className='size-4' /> Add Contact
         </Button>
       </DialogTrigger>

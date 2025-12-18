@@ -43,8 +43,8 @@ const ContactsPage = () => {
       <div className='px-8 pt-26 pb-8'>
         <h2 className='mb-8 text-center text-2xl font-bold'>Contacts</h2>
 
-        <div className='mb-6 flex items-center justify-between'>
-          <div className='rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700'>
+        <div className='mb-6 flex flex-col items-center justify-between gap-2 sm:flex-row'>
+          <div className='self-start rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700'>
             You have {userContacts.length} contacts
           </div>
           <AddContactDialog />
