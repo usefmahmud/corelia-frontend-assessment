@@ -59,10 +59,21 @@ const slice = createSlice({
         throw new Error('Contact not found');
       }
 
-      state.contacts[contactIndex] = {
-        ...state.contacts[contactIndex],
-        ...updatedContact,
-      };
+      const currentContact = state.contacts[contactIndex];
+      const newContact = { ...currentContact, ...updatedContact };
+
+      const isContactExist = state.contacts.find(
+        (c) =>
+          c.id !== contactId &&
+          c.name === newContact.name &&
+          c.number === newContact.number &&
+          c.userId === currentContact.userId
+      );
+
+      if (isContactExist) {
+        throw new Error('Contact already exists');
+      }
+
       Storage.setContacts(state.contacts);
     },
   },
