@@ -4,10 +4,17 @@ import { AddContactDialog } from '@/components/contacts/add-contact-modal';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { deleteContact } from '@/store/contacts-slice';
 import toast from 'react-hot-toast';
+import { useMemo } from 'react';
 
 const ContactsPage = () => {
   const dispatch = useAppDispatch();
   const contacts = useAppSelector((state) => state.contacts.contacts);
+  const currentUserId = useAppSelector((state) => state.auth.currentUserId);
+
+  const userContacts = useMemo(
+    () => contacts.filter((contact) => contact.userId === currentUserId),
+    [contacts, currentUserId]
+  );
 
   const handleDeleteContact = (id: number) => {
     // TODO: Add confirmation dialog before deleting
@@ -29,12 +36,12 @@ const ContactsPage = () => {
 
         <div className='mb-6 flex items-center justify-between'>
           <div className='rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700'>
-            You have {contacts.length} contacts
+            You have {userContacts.length} contacts
           </div>
           <AddContactDialog />
         </div>
 
-        <ContactTable contacts={contacts} onDelete={handleDeleteContact} />
+        <ContactTable contacts={userContacts} onDelete={handleDeleteContact} />
       </div>
     </div>
   );
